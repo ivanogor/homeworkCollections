@@ -1,13 +1,16 @@
-package pro.sky.employeeBook;
+package pro.sky.employeeBook.Controller;
 
-import exceptions.EmployeeAlreadyAddedException;
-import exceptions.EmployeeNotFoundException;
-import exceptions.EmployeeStorageIsFullException;
+import pro.sky.employeeBook.model.Employee;
+import pro.sky.employeeBook.Service.EmployeeService;
+import pro.sky.employeeBook.exceptions.EmployeeAlreadyAddedException;
+import pro.sky.employeeBook.exceptions.EmployeeNotFoundException;
+import pro.sky.employeeBook.exceptions.EmployeeStorageIsFullException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/employee")
@@ -20,10 +23,9 @@ public class EmployeeController {
 
     @RequestMapping("/add")
     public Employee addEmployee(@RequestParam("firstName") String firstName,
-                            @RequestParam("lastName") String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+                                @RequestParam("lastName") String lastName) {
         try {
-            return employeeService.addEmployee(employee);
+            return employeeService.addEmployee(firstName, lastName);
         }
         catch (EmployeeAlreadyAddedException | EmployeeStorageIsFullException e) {
             throw e;
@@ -33,9 +35,8 @@ public class EmployeeController {
     @RequestMapping("/remove")
     public Employee removeEmployee(@RequestParam("firstName") String firstName,
                             @RequestParam("lastName") String lastName) {
-        Employee employee = new Employee(firstName, lastName);
         try {
-            return employeeService.removeEmployee(employee);
+            return employeeService.removeEmployee(firstName, lastName);
         }
         catch (EmployeeNotFoundException e) {
             throw e;
@@ -45,9 +46,8 @@ public class EmployeeController {
     @RequestMapping("/find")
     public Employee findEmployee(@RequestParam("firstName") String firstName,
                             @RequestParam("lastName") String lastName) {
-        Employee employee = new Employee(firstName, lastName);
         try {
-            return employeeService.findEmployee(employee);
+            return employeeService.findEmployee(firstName, lastName);
         }
         catch (EmployeeNotFoundException e) {
             throw e;
@@ -55,7 +55,7 @@ public class EmployeeController {
     }
 
     @RequestMapping("/display")
-    public List<Employee> displayEmployees() {
+    public Employee[] displayEmployees() {
         return employeeService.displayEmployees();
     }
 }

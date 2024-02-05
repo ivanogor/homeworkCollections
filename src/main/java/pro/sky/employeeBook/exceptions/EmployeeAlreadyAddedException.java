@@ -1,7 +1,4 @@
-package exceptions;
-
-import org.springframework.web.bind.annotation.ResponseStatus;
-
+package pro.sky.employeeBook.exceptions;
 public class EmployeeAlreadyAddedException extends RuntimeException{
     public EmployeeAlreadyAddedException() {
     }
