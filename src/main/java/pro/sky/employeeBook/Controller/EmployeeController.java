@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -23,9 +24,11 @@ public class EmployeeController {
 
     @RequestMapping("/add")
     public Employee addEmployee(@RequestParam("firstName") String firstName,
-                                @RequestParam("lastName") String lastName) {
+                                @RequestParam("lastName") String lastName,
+                                @RequestParam("departmentId") int department,
+                                @RequestParam("salary") double salary) {
         try {
-            return employeeService.addEmployee(firstName, lastName);
+            return employeeService.addEmployee(firstName, lastName, department, salary);
         }
         catch (EmployeeAlreadyAddedException | EmployeeStorageIsFullException e) {
             throw e;
@@ -55,7 +58,7 @@ public class EmployeeController {
     }
 
     @RequestMapping("/display")
-    public Employee[] displayEmployees() {
+    public Collection<Employee> displayEmployees() {
         return employeeService.displayEmployees();
     }
 }
