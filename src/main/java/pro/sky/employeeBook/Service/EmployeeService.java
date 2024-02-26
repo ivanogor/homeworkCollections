@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+import static org.apache.commons.lang3.StringUtils.*;
+
 @Service
 public class EmployeeService {
     private final int MAX_NUMBER_OF_EMPLOYEE = 5;
@@ -20,8 +22,6 @@ public class EmployeeService {
         if (employeeBook.size() < MAX_NUMBER_OF_EMPLOYEE) {
             String name = firstName + lastName;
             checkArguments(name);
-            firstName = StringUtils.capitalize(firstName);
-            lastName = StringUtils.capitalize(lastName);
             if (!employeeBook.containsKey(name)) {
                 Employee employee = new Employee(firstName, lastName, department, salary);
                 employeeBook.put(name, employee);
@@ -60,7 +60,7 @@ public class EmployeeService {
     }
 
     private void checkArguments(String name) {
-        boolean badOutcome = !StringUtils.isAlpha(name);
+        boolean badOutcome = !isAlpha(name);
         if (badOutcome) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }

@@ -1,6 +1,10 @@
 package pro.sky.employeeBook.model;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Objects;
+
+import static org.apache.commons.lang3.StringUtils.*;
 
 public class Employee {
     private String firstName;
@@ -9,8 +13,8 @@ public class Employee {
     private double salary;
 
     public Employee(String firstName, String lastName, int department, double salary) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstName = capitalize(firstName.toLowerCase());
+        this.lastName = capitalize(lastName.toLowerCase());
         this.department = department;
         this.salary = salary;
     }
