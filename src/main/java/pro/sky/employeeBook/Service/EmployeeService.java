@@ -20,6 +20,8 @@ public class EmployeeService {
         if (employeeBook.size() < MAX_NUMBER_OF_EMPLOYEE) {
             String name = firstName + lastName;
             checkArguments(name);
+            firstName = StringUtils.capitalize(firstName);
+            lastName = StringUtils.capitalize(lastName);
             if (!employeeBook.containsKey(name)) {
                 Employee employee = new Employee(firstName, lastName, department, salary);
                 employeeBook.put(name, employee);
